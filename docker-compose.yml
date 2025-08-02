@@ -6,21 +6,42 @@ services:
     volumes:
       - .:/workspace
     ports:
-      - "8888:8888"          # Jupyter Lab
+      - "8888:8888"              # Jupyter Lab
     entrypoint: ["/workspace/bootstrap.sh"]
     depends_on:
-      - ollama               # Ensure Ollama starts first
+      - ollama
+    networks:
+      - llm-network
     tty: true
     stdin_open: true
 
   ollama:
-    image: ollama/ollama
+    build:
+      context: .
+      dockerfile: Dockerfile.ollama
     container_name: ollama
     ports:
-      - "11434:11434"        # Ollama's default API port
+      - "11434:11434"
     volumes:
-      - ollama_models:/root/.ollama  # Optional: persists downloaded models
+      - ollama_models:/root/.ollama
+    networks:
+      - llm-network
+    entrypoint: ["/bin/sh", "-c"]
+    command: >
+      "ollama serve & 
+      until curl -s http://localhost:11434/api/tags > /dev/null; do 
+        echo 'Waiting for Ollama to be ready...'; 
+        sleep 1; 
+      done; 
+      echo 'Ollama is ready. Pulling model...'; 
+      ollama pull llama3.2; 
+      echo 'Model downloaded. Keeping Ollama running...';
+      wait"
     tty: true
 
 volumes:
   ollama_models:
+
+networks:
+  llm-network:
+    driver: bridge
