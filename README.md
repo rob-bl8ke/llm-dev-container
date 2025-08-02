@@ -67,3 +67,21 @@ docker compose down         # Stop and remove the container
 docker system prune -a      # Remove all images/containers (careful!)
 ```
 
+# Environment without spinning up ollama locally
+
+If all you want to do is run labs and connect to LLM cloud APIs then you will not need a local installation of `ollama`. In this case, go with a simpler version of `docker-compose.yml` that does not depend on an `ollama` container.
+
+```docker
+services:
+  llm-env:
+    build:
+      context: .
+    container_name: llm-engineering
+    volumes:
+      - .:/workspace
+    ports:
+      - "8888:8888"
+    entrypoint: ["/workspace/bootstrap.sh"]
+    tty: true
+    stdin_open: true
+```

@@ -2,7 +2,7 @@ services:
   llm-env:
     build:
       context: .
-    container_name: llm-engineering
+    container_name: llm-dev-container
     volumes:
       - .:/workspace
     ports:
