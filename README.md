@@ -30,7 +30,7 @@ Visit [http://localhost:8888](http://localhost:8888) in your browser. The token 
 
 ## 📦 Daily Development
 
-Using `docker compose down` is quite destructive to use often because of the length of time it takes to do a `docker compose up`. Better to stop the enviironment and restart it again until you have to clean up resources.
+Using `docker compose down` is quite destructive to use often because of the length of time it takes to do a `docker compose up`. Better to stop the environment and restart it again until you have to clean up resources.
 
 ```bash
 docker compose stop
