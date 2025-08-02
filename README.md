@@ -4,6 +4,8 @@
 
 This project sets up a **fully containerized** environment for developing with LLMs, AI libraries, and Jupyter Lab — with **no local Conda or Python installation** required.
 
+‼️Ensure to take a look at the possible gotchas getting this to run for the first time.
+
 ## 🔧 What's Included
 
 - **Miniconda** + Mamba for Python environment management
@@ -85,3 +87,22 @@ services:
     tty: true
     stdin_open: true
 ```
+
+# 💥 Gotchas
+
+### `bootstrap.sh` no such file or directory
+
+When trying to do a `docker compose up` you run into the issue below:
+
+```
+ => resolving provenance for metadata file                                                                                                                                                                                            0.0s
+[+] Running 3/3
+ ✔ llm-env                            Built                                                                                                                                                                                           0.0s 
+ ✔ Network llm-dev-container_default  Created                                                                                                                                                                                         0.1s 
+ ✔ Container llm-dev-container        Created                                                                                                                                                                                         0.1s 
+Attaching to llm-dev-container
+llm-dev-container  | exec /workspace/bootstrap.sh: no such file or directory
+llm-dev-container exited with code 255
+```
+
+What's really happening (if you're on a Windows machine) is that if you run this in your editor (eg. Visual Studio Code) after cloning the repository, your`bootstrap.sh` file is replacing `\n` with `\r\n` (CRLF) the classic line-ending issue. When the file is copied to the container the file cannot be read properly by the Linux system. To fix this, the easiest thing to do is to ensure that your file is changed to LF instead of CRLF. You can do this in Visual Studio on the bottom status bar or simply set the defaults in settings. 
