@@ -1,0 +1,8 @@
+scikit-learn
+matplotlib
+scipy
+pyarrow
+gensim
+plotly
+beautifulsoup4
+jupyter-dash

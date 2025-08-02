@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  llm-env:
+    build:
+      context: .
+    container_name: llm-engineering
+    volumes:
+      - .:/workspace
+    ports:
+      - "8888:8888"
+    entrypoint: ["/workspace/bootstrap.sh"]
+    tty: true
+    stdin_open: true

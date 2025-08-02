@@ -1,0 +1,17 @@
+torch
+transformers
+sentence-transformers
+datasets==3.6.0
+openai
+anthropic
+google-generativeai
+gradio
+langchain
+langchain-core
+langchain-text-splitters
+langchain-openai
+langchain-chroma
+langchain-community
+chromadb
+modal
+ollama
