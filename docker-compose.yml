@@ -2,11 +2,25 @@ services:
   llm-env:
     build:
       context: .
-    container_name: llm-dev-container
+    container_name: llm-engineering
     volumes:
       - .:/workspace
     ports:
-      - "8888:8888"
+      - "8888:8888"          # Jupyter Lab
     entrypoint: ["/workspace/bootstrap.sh"]
+    depends_on:
+      - ollama               # Ensure Ollama starts first
     tty: true
     stdin_open: true
+
+  ollama:
+    image: ollama/ollama
+    container_name: ollama
+    ports:
+      - "11434:11434"        # Ollama's default API port
+    volumes:
+      - ollama_models:/root/.ollama  # Optional: persists downloaded models
+    tty: true
+
+volumes:
+  ollama_models:
