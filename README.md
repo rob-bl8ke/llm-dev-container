@@ -4,8 +4,6 @@
 
 This project sets up a **fully containerized** environment for developing with LLMs, AI libraries, and Jupyter Lab — with **no local Conda or Python installation** required.
 
----
-
 ## 🔧 What's Included
 
 - **Miniconda** + Mamba for Python environment management
@@ -15,8 +13,6 @@ This project sets up a **fully containerized** environment for developing with L
   - 📊 Data science: pandas, numpy, matplotlib, scikit-learn
   - 🤖 AI/LLM: torch, transformers, langchain, sentence-transformers
   - 🧰 Tools: dotenv, openai, pydub, psutil, twilio
-
----
 
 ## 🚀 Getting Started
 
@@ -32,7 +28,19 @@ docker compose up --build
 
 Visit [http://localhost:8888](http://localhost:8888) in your browser. The token will appear in the console log.
 
----
+## 📦 Daily Development
+
+Using `docker compose down` is quite destructive to use often because of the length of time it takes to do a `docker compose up`. Better to stop the enviironment and restart it again until you have to clean up resources.
+
+```bash
+docker compose stop
+docker compose start
+```
+which is the equivalent of...
+```bash
+docker compose restart
+```
+
 
 ## 🔐 API Keys via `.env`
 
@@ -46,15 +54,11 @@ ANTHROPIC_API_KEY=xxx
 
 These are accessible in your notebooks using `dotenv`.
 
----
-
 ## 💡 Notes
 
 * All dependencies are installed inside the container.
 * Environment is built in tiers to avoid memory crashes.
 * Your project files are mounted into the container via volume.
-
----
 
 ## 📦 Clean Up
 
@@ -62,10 +66,4 @@ These are accessible in your notebooks using `dotenv`.
 docker compose down         # Stop and remove the container
 docker system prune -a      # Remove all images/containers (careful!)
 ```
-
----
-
-## 🛠 Author
-
-Robbie — for clean, reproducible LLM workflows in Docker.
 
