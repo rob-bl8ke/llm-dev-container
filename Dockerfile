@@ -10,7 +10,7 @@ COPY requirements.tools.txt .
 COPY bootstrap.sh .
 
 # Make the bootstrap script executable
-RUN chmod +x bootstrap.sh
+RUN chmod +x /workspace/bootstrap.sh
 
 # Install mamba and create base environment
 RUN conda install -y -n base -c conda-forge mamba && \
